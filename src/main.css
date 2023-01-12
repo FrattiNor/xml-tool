@@ -1,36 +1,90 @@
 html,
 body,
 #root {
-  margin: 0;
-  padding: 0;
+    margin: 0;
+    padding: 0;
+}
+
+/* 滚动条样式 */
+::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+}
+
+/* 滑块颜色 */
+::-webkit-scrollbar-thumb {
+    background-color: var(--scrollbar-thumb-color);
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+/* 滑块颜色 */
+::-webkit-scrollbar-thumb:hover {
+    background-color: var(--scrollbar-thumb-hover-color);
+}
+
+/* 滚动条的滑轨背景颜色 */
+::-webkit-scrollbar-track {
+    background-color: var(--scrollbar-track-color);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-corner {
+    background-color: var(--scrollbar-corner-color);
 }
 
 :root {
-  font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
-  font-size: 16px;
-  line-height: 24px;
-  font-weight: 400;
-  color: var(--color);
-  background-color: var(--background-color);
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-text-size-adjust: 100%;
+    font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    line-height: 24px;
+    font-weight: 400;
+    color: var(--font-color);
+    background-color: var(--background-color);
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-text-size-adjust: 100%;
+    outline: none;
 }
 
 @media (prefers-color-scheme: light) {
-  :root {
-    /* theme */
-    --color: #0f0f0f;
-    --background-color: #f6f6f6;
-  }
+    :root {
+        /* theme */
+        --space: 16px;
+        --half-space: 8px;
+        --quarter-space: 4px;
+        --font-color: #0f0f0f;
+        --primary-color: #396cd8;
+        --background-color: #f6f6f6;
+        --btn-background-color: #ededed;
+        --scrollbar-thumb-color: #999;
+        --scrollbar-thumb-hover-color: #888;
+        --scrollbar-track-color: #fff;
+        --scrollbar-corner-color: #fff;
+        --tag-color: rgb(93, 176, 215);
+        --attr-key-color: rgb(155, 187, 220);
+        --attr-value-color: rgb(242, 151, 102);
+    }
 }
 
 @media (prefers-color-scheme: dark) {
-  :root {
-    /* theme */
-    --color: #f6f6f6;
-    --background-color: #2f2f2f;
-  }
+    :root {
+        /* theme */
+        --space: 16px;
+        --half-space: 8px;
+        --quarter-space: 4px;
+        --font-color: #f6f6f6;
+        --primary-color: #396cd8;
+        --background-color: #2f2f2f;
+        --btn-background-color: #0f0f0f;
+        --scrollbar-thumb-color: #aaa;
+        --scrollbar-thumb-hover-color: #888;
+        --scrollbar-track-color: #2f2f2f;
+        --scrollbar-corner-color: #2f2f2f;
+        --tag-color: rgb(93, 176, 215);
+        --attr-key-color: rgb(155, 187, 220);
+        --attr-value-color: rgb(242, 151, 102);
+    }
 }

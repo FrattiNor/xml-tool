@@ -1,0 +1,94 @@
+.xml-wrapper {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    box-sizing: border-box;
+
+    .menu {
+        padding: var(--space);
+        width: 256px;
+        flex-grow: 0;
+        flex-shrink: 0;
+        display: inline-flex;
+        flex-direction: column;
+
+        button {
+            border-radius: 4px;
+            border: 1px solid transparent;
+            font-weight: 500;
+            color: var(--font-color);
+            padding: var(--half-space) var(--space);
+            background-color: var(--btn-background-color);
+            transition: border-color 0.25s;
+            margin-bottom: var(--space);
+            cursor: pointer;
+            outline: none;
+            width: 100%;
+
+            &:hover {
+                border-color: var(--primary-color);
+            }
+        }
+
+        .files {
+            min-height: 0;
+            flex-grow: 1;
+            flex-shrink: 1;
+            overflow: auto;
+
+            .files-item {
+                padding: var(--quarter-space) var(--space);
+                cursor: pointer;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+
+                &.selected {
+                    color: var(--primary-color);
+                }
+            }
+        }
+    }
+
+    .content {
+        box-sizing: border-box;
+        min-width: 0;
+        flex-grow: 1;
+        flex-shrink: 1;
+        overflow: auto;
+
+        .virtual-tree {
+            position: relative;
+            // padding: var(--space);
+            // padding-right: 0;
+            // box-sizing: border-box;
+        }
+
+        .content-line {
+            position: relative;
+            display: flex;
+            align-items: center;
+
+            .line-checkbox {
+                margin: 0;
+                cursor: pointer;
+
+                & > span + span {
+                    margin-left: var(--space);
+                }
+
+                .tag {
+                    color: var(--tag-color);
+                }
+
+                .attr-key {
+                    color: var(--attr-key-color);
+                }
+
+                .attr-value {
+                    color: var(--attr-value-color);
+                }
+            }
+        }
+    }
+}
