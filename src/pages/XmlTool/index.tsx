@@ -1,40 +1,51 @@
-/* eslint-disable @typescript-eslint/no-use-before-define */
-/* eslint-disable react/no-array-index-key */
-import type { XmlTree, XmlJSON } from './types';
-import { fileUpload, xmlToJson } from './utils';
-import { useState } from 'react';
+import { fileUpload, xmlToJson, attrKeyShow, fileDownload, jsonToXml, fileToStr, strToBlob } from './utils';
+import { Fragment, useState } from 'react';
 import VirtualTree from './XmlVirtualTree';
+import xmlToTree from './utils_XmlToTree';
+import treeToXml from './utils_TreeToXml';
 import styles from './index.module.less';
-import xmlToTree from './xmlToTree';
+import Button from '@/components/Button';
+import type { XmlTree } from './types';
 import classnames from 'classnames';
 
 const XmlTool = () => {
     const [selectedName, setSelectedName] = useState<string>('');
     const [files, setFiles] = useState<File[]>([]);
-    const [xmlJSON, setXmlJSON] = useState<XmlJSON>({});
     const [xmlTree, setXmlTree] = useState<XmlTree>([]);
+    const [currentFile, setCurrentFile] = useState<File | null>(null);
 
+    // 上传
     const upload = () => {
         fileUpload({ accept: '.xml', multiple: false }).then((_files) => {
             setFiles((f) => [...f, ..._files]);
         });
     };
 
+    // 选择xml文件
     const selectXml = (f: File) => {
-        const reader = new FileReader();
-        reader.onload = () => {
-            const nextXmlJSON = xmlToJson(reader.result as string);
-            setXmlJSON(nextXmlJSON);
+        fileToStr(f, (str) => {
+            setCurrentFile(f);
+            const nextXmlJSON = xmlToJson(str);
             setXmlTree(xmlToTree(nextXmlJSON));
             setSelectedName(f.name);
-        };
-        reader.readAsText(f);
+        });
+    };
+
+    // 导出
+    const exportFun = () => {
+        if (currentFile) {
+            const fileStr = jsonToXml(treeToXml(xmlTree));
+            const blob = strToBlob(fileStr, currentFile.type);
+            fileDownload(blob, currentFile.name);
+        }
     };
 
     return (
         <div className={styles['xml-wrapper']}>
             <div className={styles['menu']}>
-                <button onClick={upload}>上传XML</button>
+                <Button className={styles['button']} onClick={upload}>
+                    上传XML
+                </Button>
 
                 <div className={styles['files']}>
                     {files.map((item) => (
@@ -51,13 +62,36 @@ const XmlTool = () => {
             </div>
 
             <div className={styles['content']}>
-                <VirtualTree
-                    data={xmlTree}
-                    getKey={({ id }) => id}
-                    render={({ data }) => data.tag}
-                    getChildList={({ child }) => child}
-                    className={styles['virtual-tree']}
-                />
+                {xmlTree.length > 0 && (
+                    <Fragment>
+                        <div className={styles['content-tree']}>
+                            <VirtualTree
+                                size={24}
+                                keyKey="id"
+                                data={xmlTree}
+                                childListKey="child"
+                                exportFun={exportFun}
+                                onSearch={({ data }, keyword) =>
+                                    [data.tag, ...Object.entries(data.attrs).map(([k, v]) => `${attrKeyShow(k)}:${v}`)].join(' ').includes(keyword)
+                                }
+                                render={({ data }) => {
+                                    return (
+                                        <div className={styles['content-line']}>
+                                            <span className={styles['tag']}>{data.tag}</span>
+                                            {Object.entries(data.attrs).map(([k, v]) => (
+                                                <span key={k}>
+                                                    <span className={styles['attr-key']}>{attrKeyShow(k)}</span>
+                                                    <span>=</span>
+                                                    <span className={styles['attr-value']}>{v}</span>
+                                                </span>
+                                            ))}
+                                        </div>
+                                    );
+                                }}
+                            />
+                        </div>
+                    </Fragment>
+                )}
             </div>
         </div>
     );

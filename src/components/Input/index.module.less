@@ -1,0 +1,43 @@
+.input-wrapper {
+    display: inline-flex;
+    align-items: center;
+    border-radius: 4px;
+    box-sizing: border-box;
+    height: var(--block-height);
+    border: 1px solid var(--border-color);
+    transition: border-color 0.25s;
+    overflow: hidden;
+
+    &:hover {
+        border-color: var(--primary-color);
+    }
+
+    .input {
+        font-weight: 500;
+        color: var(--font-color);
+        padding: 0 0 0 var(--half-space);
+        background-color: var(--input-background-color);
+        outline: none;
+        height: 100%;
+        border: 0;
+    }
+
+    .input:valid + .clear-icon {
+        opacity: 1;
+    }
+
+    .clear-icon {
+        cursor: pointer;
+        font-size: 10px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        transition: color 0.25s, opacity 0.25s;
+        margin: 0 var(--half-space);
+        opacity: 0;
+
+        &:hover {
+            color: var(--primary-color);
+        }
+    }
+}

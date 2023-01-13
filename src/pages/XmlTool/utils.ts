@@ -53,6 +53,39 @@ export const fileDownload = (blob: Blob, filename: string) => {
 };
 
 // xml 解析为 json
-export const xmlToJson = (data: string) => new xmlParser.XMLParser({ ignoreAttributes: false }).parse(data);
+export const xmlToJson = (data: string): Record<string, any> => new xmlParser.XMLParser({ ignoreAttributes: false }).parse(data);
+
 // json 解析为 xml
-export const jsonToXml = (data: string) => new xmlParser.XMLBuilder({ ignoreAttributes: false, format: true }).build(data);
+export const jsonToXml = (data: Record<string, any>): string => new xmlParser.XMLBuilder({ ignoreAttributes: false, format: true }).build(data);
+
+// xml 解析后的参数携带前缀（默认为@_）
+export const attrKeyShow = (key: string) => {
+    if (key === '#text') {
+        return 'children';
+    } else {
+        return key.replace('@_', '');
+    }
+};
+
+// xml 解析后的参数携带前缀（默认为@_）
+export const attrKeySave = (key: string) => {
+    if (key === 'children') {
+        return '#text';
+    } else {
+        return `@_${key}`;
+    }
+};
+
+// 将文件读为str
+export const fileToStr = (f: File, callback: (v: string) => void) => {
+    const reader = new FileReader();
+    reader.onload = () => {
+        callback(reader.result as string);
+    };
+    reader.readAsText(f);
+};
+
+// 将str转为File
+export const strToBlob = (str: string, type: string): Blob => {
+    return new Blob([str], { type });
+};

@@ -20,7 +20,6 @@ const parseToTreeItem = (key: string, data: XmlJSON): XmlTreeItem => {
         tag: key,
         attrs,
         child,
-        origin: data,
         id: nanoid(),
     };
 };

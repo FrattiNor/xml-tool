@@ -1,0 +1,29 @@
+.modal {
+    [class='ant-modal-header'] {
+        display: none;
+    }
+
+    [class='ant-modal-title'],
+    [class='ant-modal-footer'],
+    [class='ant-modal-content'] {
+        color: var(--font-color);
+        border-color: transparent;
+        background-color: var(--background-color);
+    }
+
+    .content {
+        padding: var(--space);
+    }
+
+    .foot {
+        button {
+            background-color: var(--background-color);
+            border-color: var(--border-color);
+            border-radius: 2px;
+        }
+
+        button + button {
+            margin-left: var(--space);
+        }
+    }
+}

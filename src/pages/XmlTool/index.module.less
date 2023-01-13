@@ -12,22 +12,9 @@
         display: inline-flex;
         flex-direction: column;
 
-        button {
-            border-radius: 4px;
-            border: 1px solid transparent;
-            font-weight: 500;
-            color: var(--font-color);
-            padding: var(--half-space) var(--space);
-            background-color: var(--btn-background-color);
-            transition: border-color 0.25s;
+        .button {
             margin-bottom: var(--space);
-            cursor: pointer;
-            outline: none;
             width: 100%;
-
-            &:hover {
-                border-color: var(--primary-color);
-            }
         }
 
         .files {
@@ -37,11 +24,13 @@
             overflow: auto;
 
             .files-item {
-                padding: var(--quarter-space) var(--space);
+                padding: 0 var(--space);
                 cursor: pointer;
                 overflow: hidden;
                 text-overflow: ellipsis;
                 white-space: nowrap;
+                font-size: 12px;
+                height: 24px;
 
                 &.selected {
                     color: var(--primary-color);
@@ -56,25 +45,23 @@
         flex-grow: 1;
         flex-shrink: 1;
         overflow: auto;
+        display: flex;
+        flex-direction: column;
 
-        .virtual-tree {
+        .content-tree {
+            height: 0;
+            flex-grow: 1;
+            flex-shrink: 0;
             position: relative;
-            // padding: var(--space);
-            // padding-right: 0;
-            // box-sizing: border-box;
-        }
 
-        .content-line {
-            position: relative;
-            display: flex;
-            align-items: center;
-
-            .line-checkbox {
-                margin: 0;
-                cursor: pointer;
+            .content-line {
+                position: relative;
+                display: flex;
+                align-items: center;
+                font-size: 12px;
 
                 & > span + span {
-                    margin-left: var(--space);
+                    margin-left: var(--half-space);
                 }
 
                 .tag {
