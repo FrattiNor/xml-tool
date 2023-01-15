@@ -7,6 +7,8 @@ import styles from './index.module.less';
 import Button from '@/components/Button';
 import type { XmlTree } from './types';
 import classnames from 'classnames';
+import { message } from 'antd';
+import 'antd/es/message/style/css';
 
 const XmlTool = () => {
     const [selectedName, setSelectedName] = useState<string>('');
@@ -17,7 +19,17 @@ const XmlTool = () => {
     // 上传
     const upload = () => {
         fileUpload({ accept: '.xml', multiple: false }).then((_files) => {
-            setFiles((f) => [...f, ..._files]);
+            setFiles((fs) => {
+                const nextFiles: File[] = [];
+                _files.forEach((f) => {
+                    if (fs.some((item) => item.name === f.name)) {
+                        message.error(`${f.name}已存在`);
+                    } else {
+                        nextFiles.push(f);
+                    }
+                });
+                return [...fs, ...nextFiles];
+            });
         });
     };
 
