@@ -7,7 +7,7 @@ const parseToTreeItem = (key: string, data: XmlJSON): XmlTreeItem => {
     let child: XmlTree = [];
 
     Object.entries(data).forEach(([k, v]) => {
-        if (typeof v === 'string') {
+        if (typeof v === 'string' || typeof v === 'number') {
             attrs[k] = data[k];
         } else if (Array.isArray(v)) {
             child = [...child, ...parseToTree(k, v)];

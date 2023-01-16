@@ -38,6 +38,7 @@ const XmlTool = () => {
         fileToStr(f, (str) => {
             setCurrentFile(f);
             const nextXmlJSON = xmlToJson(str);
+            console.log('nextXmlJSON', nextXmlJSON);
             setXmlTree(xmlToTree(nextXmlJSON));
             setSelectedName(f.name);
         });
@@ -84,7 +85,7 @@ const XmlTool = () => {
                                 childListKey="child"
                                 exportFun={exportFun}
                                 onSearch={({ data }, keyword) =>
-                                    [data.tag, ...Object.entries(data.attrs).map(([k, v]) => `${attrKeyShow(k)}:${v}`)].join(' ').includes(keyword)
+                                    [data.tag, ...Object.entries(data.attrs).map(([k, v]) => `${attrKeyShow(k)}=${v}`)].join(' ').includes(keyword)
                                 }
                                 render={({ data }) => {
                                     return (
